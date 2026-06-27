@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizTrack Setup Guide</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background:#f8fafc; color:#1e293b; }
+  .hero { background: linear-gradient(135deg,#247BA0,#1a5c7a); color:#fff; padding:3rem 2rem 2rem; text-align:center; }
+  .hero h1 { font-size:2rem; font-weight:900; }
+  .hero p { margin-top:8px; opacity:.85; font-size:1.05rem; }
+  .container { max-width:780px; margin:0 auto; padding:2rem 1.5rem 4rem; }
+  
+  .alert { background:#fff7ed; border:2px solid #fb923c; border-radius:10px; padding:1rem 1.2rem; margin-bottom:2rem; font-size:0.95rem; }
+  .alert strong { color:#c2410c; display:block; margin-bottom:4px; font-size:1rem; }
+
+  .step-card { background:#fff; border-radius:14px; padding:1.5rem 1.8rem; margin-bottom:1.5rem; box-shadow:0 2px 10px rgba(0,0,0,0.07); position:relative; border-left:5px solid #247BA0; }
+  .step-num { position:absolute; top:-14px; left:20px; background:#247BA0; color:#fff; font-weight:900; font-size:0.85rem; padding:3px 14px; border-radius:20px; }
+  .step-card h2 { font-size:1.1rem; font-weight:800; margin-bottom:0.8rem; color:#1e293b; }
+  .step-card p, .step-card li { font-size:0.92rem; color:#475569; line-height:1.7; }
+  .step-card ul, .step-card ol { padding-left:1.3rem; margin-top:0.5rem; }
+  .step-card li { margin-bottom:5px; }
+  
+  .code-box { background:#1e293b; color:#7dd3fc; border-radius:8px; padding:10px 16px; font-family:monospace; font-size:0.9rem; margin:10px 0; word-break:break-all; }
+  .code-box .hl { color:#fbbf24; font-weight:bold; }
+
+  .img-placeholder { background:#f1f5f9; border:2px dashed #cbd5e1; border-radius:8px; padding:1rem; text-align:center; color:#94a3b8; font-size:0.85rem; margin:10px 0; }
+
+  .done-card { background:linear-gradient(135deg,#dcfce7,#bbf7d0); border:2px solid #22c55e; border-radius:14px; padding:1.5rem; text-align:center; margin-top:2rem; }
+  .done-card h2 { color:#15803d; font-size:1.3rem; }
+  .done-card p { color:#166534; margin-top:6px; }
+
+  .tag { display:inline-block; background:#e0f2fe; color:#0369a1; border-radius:5px; padding:1px 8px; font-size:0.8rem; font-weight:700; }
+  .tag-green { background:#dcfce7; color:#166534; }
+  .tag-yellow { background:#fef9c3; color:#854d0e; }
+
+  .tip { background:#f0fdf4; border:1.5px solid #86efac; border-radius:8px; padding:8px 14px; font-size:0.85rem; color:#166534; margin-top:10px; }
+  .tip strong { color:#15803d; }
+
+  h3 { font-size:0.95rem; font-weight:700; color:#334155; margin:1rem 0 4px; }
+  
+  @media(max-width:600px) {
+    .hero h1 { font-size:1.5rem; }
+    .container { padding:1.2rem 1rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🚀 BizTrack Setup Guide</h1>
+  <p>Google Drive Sync activate karo — sirf 10 minutes mein</p>
+</div>
+
+<div class="container">
+
+  <div class="alert">
+    <strong>⚠️ Pehle ye padho</strong>
+    Ye steps sirf ek baar karne hain. Baad mein automatically sync hoga. Koi payment nahi, Google ka free plan use ho raha hai.
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step-card">
+    <div class="step-num">Step 1</div>
+    <h2>Google Cloud Console open karo</h2>
+    <p>Apne browser mein ye link open karo (same Google account se login karo jo app mein use karna hai):</p>
+    <div class="code-box">https://console.cloud.google.com/</div>
+    <div class="tip"><strong>Tip:</strong> Agar pehli baar hai — "Terms of Service" accept karo, free hai.</div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step-card">
+    <div class="step-num">Step 2</div>
+    <h2>Naya Project banao</h2>
+    <ol>
+      <li>Top-left mein <strong>"Select a project"</strong> dropdown click karo</li>
+      <li><strong>"New Project"</strong> click karo</li>
+      <li>Project name type karo: <span class="code-box" style="display:inline;padding:2px 8px;">BizTrack</span></li>
+      <li><strong>"Create"</strong> click karo</li>
+      <li>Project create hone ke baad uspe click karo (select karo)</li>
+    </ol>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step-card">
+    <div class="step-num">Step 3</div>
+    <h2>Google Drive API Enable karo</h2>
+    <ol>
+      <li>Left side menu mein <strong>"APIs & Services"</strong> → <strong>"Library"</strong> click karo</li>
+      <li>Search box mein type karo: <span class="code-box" style="display:inline;padding:2px 8px;">Google Drive API</span></li>
+      <li>Result mein <strong>"Google Drive API"</strong> click karo</li>
+      <li><strong>"Enable"</strong> button click karo</li>
+    </ol>
+    <div class="tip"><strong>✓ Done sign:</strong> Enable ke baad "Manage" button dikhega.</div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step-card">
+    <div class="step-num">Step 4</div>
+    <h2>OAuth Consent Screen setup karo</h2>
+    <ol>
+      <li>Left menu: <strong>"APIs & Services"</strong> → <strong>"OAuth consent screen"</strong></li>
+      <li>User Type: <strong>"External"</strong> select karo → <strong>"Create"</strong></li>
+      <li>App name: <span class="code-box" style="display:inline;padding:2px 8px;">BizTrack</span></li>
+      <li>User support email: <strong>apna email select karo</strong></li>
+      <li>Developer contact email: <strong>apna email type karo</strong></li>
+      <li><strong>"Save and Continue"</strong> click karo (baaki sab default rehne do)</li>
+      <li>Scopes page pe bhi <strong>"Save and Continue"</strong></li>
+      <li>Test Users pe apna email add karo → <strong>"Save and Continue"</strong></li>
+    </ol>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step-card">
+    <div class="step-num">Step 5</div>
+    <h2>OAuth Client ID banao ← <span class="tag tag-yellow">Sabse important step</span></h2>
+    <ol>
+      <li>Left menu: <strong>"APIs & Services"</strong> → <strong>"Credentials"</strong></li>
+      <li>Top pe <strong>"+ Create Credentials"</strong> → <strong>"OAuth client ID"</strong></li>
+      <li>Application type: <strong>"Web application"</strong></li>
+      <li>Name: <span class="code-box" style="display:inline;padding:2px 8px;">BizTrack Web</span></li>
+      <li><strong>"Authorized JavaScript origins"</strong> mein Add karo:</li>
+    </ol>
+    <div class="code-box">http://localhost</div>
+    <div class="code-box">http://127.0.0.1</div>
+    <p style="margin-top:8px;">Agar ye app kisi website pe host karo toh woh URL bhi add karo (e.g. <span style="color:#247BA0;">https://yoursite.com</span>)</p>
+    <ol start="6">
+      <li><strong>"Create"</strong> click karo</li>
+      <li>Ek popup aayega — usme <strong>"Your Client ID"</strong> copy karo</li>
+    </ol>
+    <div class="tip"><strong>Client ID aisa dikhta hai:</strong><br>
+      <span style="font-family:monospace;font-size:0.85rem;color:#0369a1;">123456789-abcdefghijklmnop.apps.googleusercontent.com</span>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step-card">
+    <div class="step-num">Step 6</div>
+    <h2>Client ID BizTrack mein paste karo</h2>
+    <p><strong>gdrive.js</strong> file open karo (Notepad se). Pehli line dikhegi:</p>
+    <div class="code-box">const GDRIVE_CLIENT_ID = '<span class="hl">PASTE_YOUR_CLIENT_ID_HERE</span>';</div>
+    <p style="margin-top:8px;"><strong>PASTE_YOUR_CLIENT_ID_HERE</strong> hata ke apna Client ID paste karo:</p>
+    <div class="code-box">const GDRIVE_CLIENT_ID = '<span class="hl">123456789-abcdef.apps.googleusercontent.com</span>';</div>
+    <p style="margin-top:8px;">File save karo (Ctrl+S).</p>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step-card">
+    <div class="step-num">Step 7</div>
+    <h2>App kaise use karein — Offline Install</h2>
+    
+    <h3>💻 Laptop/PC pe (Chrome/Edge):</h3>
+    <ol>
+      <li>BizTrack folder mein <strong>index.html</strong> double-click karo (Chrome mein open hoga)</li>
+      <li>Address bar mein right side pe <strong>Install icon (⊕)</strong> dikhega</li>
+      <li>Click karo → <strong>"Install"</strong> — Desktop pe icon ban jaayega</li>
+      <li>Ab directly desktop se open kar sakte ho, browser ki zaroorat nahi</li>
+    </ol>
+
+    <h3>📱 Mobile pe (Android Chrome):</h3>
+    <ol>
+      <li>App kisi free hosting pe upload karo (Netlify Drop — agle step mein bataya)</li>
+      <li>Chrome mein website open karo</li>
+      <li>Three dots (⋮) → <strong>"Add to Home screen"</strong></li>
+      <li>Home screen pe icon ban jaayega — bilkul app jaisa</li>
+    </ol>
+
+    <div class="tip"><strong>Free Hosting (Netlify Drop):</strong> netlify.com/drop pe jaao → BizTrack folder drag & drop karo → free URL milega → mobile pe us URL se open karo → install karo.</div>
+  </div>
+
+  <!-- STEP 8 -->
+  <div class="step-card">
+    <div class="step-num">Step 8</div>
+    <h2>Drive Sync kaise use karein</h2>
+    <p>Har page ke neeche ek <strong>blue sync bar</strong> dikhega:</p>
+    <ul>
+      <li><strong>"☁ Save to Drive"</strong> — Data Google Drive mein save karo (ek click)</li>
+      <li><strong>"↓ Restore from Drive"</strong> — Dusre device pe ye click karo data aane ke liye</li>
+    </ul>
+    <div class="tip">
+      <strong>Best Practice:</strong> Koi bhi important kaam karne ke baad "Save to Drive" click karo. Dusre device pe kholo toh automatic pull ho jaata hai (pehle se logged in ho toh).
+    </div>
+  </div>
+
+  <div class="done-card">
+    <h2>🎉 Setup Complete!</h2>
+    <p>Ab tumhara BizTrack lifetime free hai, kisi bhi device pe chalega, aur Google Drive mein safe rahega.</p>
+    <p style="margin-top:8px;font-size:0.85rem;opacity:0.8;">Data loss ka koi chance nahi — Drive mein backup hamesha rahega.</p>
+  </div>
+
+</div>
+</body>
+</html>

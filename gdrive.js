@@ -3,7 +3,7 @@
 //  Paste your Google OAuth Client ID below after setup
 // ═══════════════════════════════════════════════════════
 
-const GDRIVE_CLIENT_ID = 'PASTE_YOUR_CLIENT_ID_HERE';  // ← sirf yahi change karna hai
+const GDRIVE_CLIENT_ID = '611988197762-odi0nijt6vg7gg3e1efsfjigmqmh1mfh.apps.googleusercontent.com';  // ← sirf yahi change karna hai
 const GDRIVE_SCOPES = 'https://www.googleapis.com/auth/drive.appdata';
 const BACKUP_FILENAME = 'biztrack-backup.json';
 

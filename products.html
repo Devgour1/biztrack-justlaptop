@@ -1,193 +1,207 @@
-function openSidebar() {
-  var side = document.getElementById('sidebar');
-  side.style.display = (side.style.display === "block") ? "none" : "block";
-}
-function closeSidebar() { document.getElementById('sidebar').style.display = 'none'; }
-function openForm() {
-  var form = document.getElementById("product-form");
-  form.style.display = (form.style.display === "block") ? "none" : "block";
-}
-function closeForm() { document.getElementById("product-form").style.display = "none"; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#247BA0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <title>Inventory - Just Laptop</title>
+    <style>
+        .jl-badge { background:#e0f7ee; color:#1a7a4a; font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:20px; margin-left:6px; }
+        .condition-excellent { background:#d1fae5; color:#065f46; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700; }
+        .condition-good      { background:#dbeafe; color:#1e40af; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700; }
+        .condition-fair      { background:#fef9c3; color:#854d0e; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700; }
+        .condition-poor      { background:#fee2e2; color:#991b1b; padding:3px 10px; border-radius:20px; font-size:0.75rem; font-weight:700; }
+        .brand-tag { background:#f1f5f9; color:#334155; font-size:0.78rem; font-weight:700; padding:2px 8px; border-radius:5px; }
+        .stock-in  { color:#16a34a; font-weight:700; }
+        .stock-out { color:#dc2626; font-weight:700; }
+        .form-group-inline { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .form-group-inline-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; }
+        .form-section { margin-top:1rem; }
+        .form-section-title { font-size:0.75rem; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.5px; margin-bottom:0.5rem; }
+        .spec-chip { display:inline-block; background:#f8fafc; border:1px solid #e2e8f0; border-radius:5px; padding:2px 8px; font-size:0.78rem; color:#475569; margin:2px; }
+        .jl-header-logo { font-size:1.1rem; font-weight:900; color:#1a7a4a; }
+    </style>
+</head>
+<body>
+    <div id="sidebar" class="sidebar">
+        <div class="logo">
+            <a href="./index.html">
+                <i class="fas fa-laptop"></i>
+                <span>Just Laptop</span>
+            </a>
+            <i class="fa-solid fa-xmark" title="Close" onclick="closeSidebar()"></i>
+        </div>
+        <ul class="menu">
+            <li><a href="./index.html"><i class="fa-solid fa-gauge-high"></i><span>Dashboard</span></a></li>
+            <li class="active"><a href="./products.html"><i class="fas fa-laptop"></i><span>Inventory</span></a></li>
+            <li><a href="./orders.html"><i class="fas fa-shopping-cart"></i><span>Sales</span></a></li>
+            <li><a href="./finances.html"><i class="fas fa-sack-dollar"></i><span>Expenses</span></a></li>
+            <li><a href="./invoice.html"><i class="fas fa-file-invoice"></i><span>GST Invoice</span></a></li>
+            <li><a href="./help.html"><i class="fas fa-question-circle"></i><span>Help</span></a></li>
+            <li class="logout"><a href="./about.html"><i class="fa-solid fa-users-line"></i><span>About</span></a></li>
+        </ul>
+    </div>
 
-let products = [];
+    <div class="main-content">
+        <div class="header-wrapper">
+            <div class="menu-icon" onclick="openSidebar()"><i class="fa-solid fa-bars"></i></div>
+            <div class="header-title">
+                <h2>Inventory <span class="jl-badge">Refurbished Laptops</span></h2>
+            </div>
+            <div class="user-info">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="search" id="searchInput" placeholder="Search brand, model, spec...">
+                </div>
+            </div>
+        </div>
 
-function init() {
-  const stored = localStorage.getItem("bizTrackProducts");
-  if (stored) {
-    products = JSON.parse(stored);
-  } else {
-    // Just Laptop sample data
-    products = [
-      { prodID:"JL001", prodBrand:"Dell", prodName:"Inspiron 15 3000", prodDesc:"Intel Core i5 10th Gen", prodRam:"8GB", prodStorage:"256GB SSD", prodDisplay:'15.6"', prodCat:"Good", prodPrice:16500, prodCost:13000, prodSold:2, prodNotes:"Windows 11 activated" },
-      { prodID:"JL002", prodBrand:"HP", prodName:"Pavilion 14", prodDesc:"Intel Core i3 8th Gen", prodRam:"8GB", prodStorage:"512GB SSD", prodDisplay:'14"', prodCat:"Excellent", prodPrice:14000, prodCost:11000, prodSold:1, prodNotes:"Like new condition" },
-      { prodID:"JL003", prodBrand:"Lenovo", prodName:"ThinkPad E14", prodDesc:"Intel Core i5 11th Gen", prodRam:"16GB", prodStorage:"512GB SSD", prodDisplay:'14"', prodCat:"Excellent", prodPrice:22000, prodCost:18000, prodSold:1, prodNotes:"Business grade" },
-      { prodID:"JL004", prodBrand:"Apple", prodName:"MacBook Air M1", prodDesc:"Apple M1 Chip", prodRam:"8GB", prodStorage:"256GB SSD", prodDisplay:'13.3"', prodCat:"Good", prodPrice:55000, prodCost:48000, prodSold:1, prodNotes:"Battery health 89%" },
-      { prodID:"JL005", prodBrand:"Asus", prodName:"VivoBook 15", prodDesc:"AMD Ryzen 5 5500U", prodRam:"8GB", prodStorage:"512GB SSD", prodDisplay:'15.6"', prodCat:"Fair", prodPrice:18000, prodCost:14500, prodSold:3, prodNotes:"Minor keyboard wear" },
-    ];
-    localStorage.setItem("bizTrackProducts", JSON.stringify(products));
-  }
-  renderProducts(products);
-}
+        <div class="table-wrapper">
+            <div class="product-title">
+                <h3 class="main-title">Laptop Stock</h3>
+                <div class="product-button">
+                    <button class="add-button" onclick="openForm()"><i class="fas fa-plus"></i> Add Laptop</button>
+                    <button class="download-button" onclick="exportToCSV()"><i class="fas fa-download"></i> Export CSV</button>
+                </div>
+            </div>
 
-function addOrUpdate(event) {
-  let type = document.getElementById("submitBtn").textContent;
-  if (type === 'Add to Stock') newProduct(event);
-  else updateProduct(document.getElementById("product-id").value);
-}
+            <!-- Add/Edit Form -->
+            <div class="form-popup">
+                <form class="form-container" id="product-form" onsubmit="addOrUpdate(event)">
+                    <h3 style="margin-bottom:1rem;color:#1a7a4a;font-size:1rem;"><i class="fas fa-laptop"></i> Laptop Details</h3>
+                    
+                    <div class="form-columns">
+                        <div class="first-col">
+                            <div class="form-section">
+                                <div class="form-section-title">Basic Info</div>
+                                <label for="product-id"><b>Stock ID</b></label>
+                                <input type="text" id="product-id" placeholder="JL001" required>
 
-function newProduct(event) {
-  event.preventDefault();
-  const prodID = document.getElementById("product-id").value.trim();
-  if (isDuplicateID(prodID, null)) { alert("Stock ID already exists!"); return; }
+                                <label for="product-brand" style="margin-top:8px;"><b>Brand</b></label>
+                                <select id="product-brand" required onchange="updateModels()">
+                                    <option value="" disabled selected>Select Brand</option>
+                                    <option value="Dell">Dell</option>
+                                    <option value="HP">HP</option>
+                                    <option value="Lenovo">Lenovo</option>
+                                    <option value="Asus">Asus</option>
+                                    <option value="Acer">Acer</option>
+                                    <option value="Apple">Apple MacBook</option>
+                                    <option value="Samsung">Samsung</option>
+                                    <option value="MSI">MSI</option>
+                                    <option value="Toshiba">Toshiba</option>
+                                    <option value="Sony">Sony Vaio</option>
+                                    <option value="Other">Other</option>
+                                </select>
 
-  const product = collectForm(prodID);
-  products.push(product);
-  localStorage.setItem("bizTrackProducts", JSON.stringify(products));
-  renderProducts(products);
-  document.getElementById("product-form").reset();
-  closeForm();
-}
+                                <label for="product-name" style="margin-top:8px;"><b>Model Name</b></label>
+                                <input type="text" id="product-name" placeholder="e.g. Inspiron 15, ThinkPad E14" required>
 
-function collectForm(prodID) {
-  return {
-    prodID,
-    prodBrand:   document.getElementById("product-brand").value,
-    prodName:    document.getElementById("product-name").value.trim(),
-    prodDesc:    document.getElementById("product-desc").value.trim(),
-    prodRam:     document.getElementById("product-ram").value,
-    prodStorage: document.getElementById("product-storage").value,
-    prodDisplay: document.getElementById("product-display").value,
-    prodCat:     document.getElementById("product-cat").value,
-    prodPrice:   parseFloat(document.getElementById("product-price").value) || 0,
-    prodCost:    parseFloat(document.getElementById("product-cost").value) || 0,
-    prodSold:    parseInt(document.getElementById("product-sold").value) || 0,
-    prodNotes:   document.getElementById("product-notes").value.trim(),
-  };
-}
+                                <label for="product-cat" style="margin-top:8px;"><b>Condition</b></label>
+                                <select id="product-cat" required>
+                                    <option value="" disabled selected>Select Condition</option>
+                                    <option value="Excellent">⭐ Excellent (Like New)</option>
+                                    <option value="Good">✅ Good (Minor scratches)</option>
+                                    <option value="Fair">⚠️ Fair (Visible wear)</option>
+                                    <option value="Poor">🔧 Poor (Needs repair)</option>
+                                </select>
+                            </div>
+                        </div>
 
-function conditionBadge(c) {
-  const map = { Excellent:'condition-excellent', Good:'condition-good', Fair:'condition-fair', Poor:'condition-poor' };
-  return `<span class="${map[c]||'condition-fair'}">${c}</span>`;
-}
+                        <div class="second-col">
+                            <div class="form-section">
+                                <div class="form-section-title">Specifications</div>
+                                <label for="product-desc"><b>Processor</b></label>
+                                <input type="text" id="product-desc" placeholder="e.g. Intel Core i5 10th Gen" required>
 
-function renderProducts(list) {
-  const tbody = document.getElementById("tableBody");
-  tbody.innerHTML = "";
-  if (list.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#999;padding:2rem;">No laptops in stock. Add your first laptop!</td></tr>';
-    return;
-  }
-  list.forEach(p => {
-    const tr = document.createElement("tr");
-    tr.className = "product-row";
-    tr.dataset.prodID = p.prodID;
-    tr.dataset.prodBrand = p.prodBrand || '';
-    tr.dataset.prodName = p.prodName;
-    tr.dataset.prodDesc = p.prodDesc;
-    tr.dataset.prodCat = p.prodCat;
-    tr.dataset.prodPrice = p.prodPrice;
-    tr.dataset.prodSold = p.prodSold;
+                                <label style="margin-top:8px;"><b>RAM</b></label>
+                                <select id="product-ram">
+                                    <option value="4GB">4 GB</option>
+                                    <option value="8GB" selected>8 GB</option>
+                                    <option value="12GB">12 GB</option>
+                                    <option value="16GB">16 GB</option>
+                                    <option value="32GB">32 GB</option>
+                                </select>
 
-    const profit = p.prodCost > 0 ? `<br><small style="color:#16a34a;">+₹${(p.prodPrice - p.prodCost).toLocaleString('en-IN')} margin</small>` : '';
-    const stockColor = p.prodSold > 0 ? 'stock-in' : 'stock-out';
-    const stockText = p.prodSold > 0 ? p.prodSold + ' pcs' : 'Out of Stock';
+                                <label style="margin-top:8px;"><b>Storage</b></label>
+                                <select id="product-storage">
+                                    <option value="128GB SSD">128 GB SSD</option>
+                                    <option value="256GB SSD" selected>256 GB SSD</option>
+                                    <option value="512GB SSD">512 GB SSD</option>
+                                    <option value="1TB SSD">1 TB SSD</option>
+                                    <option value="500GB HDD">500 GB HDD</option>
+                                    <option value="1TB HDD">1 TB HDD</option>
+                                    <option value="256GB SSD + 1TB HDD">256GB SSD + 1TB HDD</option>
+                                </select>
 
-    tr.innerHTML = `
-      <td><b>${p.prodID}</b></td>
-      <td><span class="brand-tag">${p.prodBrand||'—'}</span></td>
-      <td><b>${p.prodName}</b></td>
-      <td>${p.prodDesc}</td>
-      <td>
-        <span class="spec-chip">🧠 ${p.prodRam||'—'}</span>
-        <span class="spec-chip">💾 ${p.prodStorage||'—'}</span>
-        <span class="spec-chip">🖥 ${p.prodDisplay||'—'}</span>
-        ${p.prodNotes ? `<br><small style="color:#94a3b8;">${p.prodNotes}</small>` : ''}
-      </td>
-      <td>${conditionBadge(p.prodCat)}</td>
-      <td><b>₹${p.prodPrice.toLocaleString('en-IN')}</b>${profit}</td>
-      <td class="${stockColor}">${stockText}</td>
-      <td class="action">
-        <i title="Edit" onclick="editRow('${p.prodID}')" class="edit-icon fa-solid fa-pen-to-square"></i>
-        <i onclick="deleteProduct('${p.prodID}')" class="delete-icon fas fa-trash-alt"></i>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
+                                <label style="margin-top:8px;"><b>Display</b></label>
+                                <select id="product-display">
+                                    <option value='13.3"'>13.3 inch</option>
+                                    <option value='14"'>14 inch</option>
+                                    <option value='15.6"' selected>15.6 inch</option>
+                                    <option value='16"'>16 inch</option>
+                                    <option value='17.3"'>17.3 inch</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
-function editRow(prodID) {
-  const p = products.find(x => x.prodID === prodID);
-  if (!p) return;
-  document.getElementById("product-id").value = p.prodID;
-  document.getElementById("product-brand").value = p.prodBrand || '';
-  document.getElementById("product-name").value = p.prodName;
-  document.getElementById("product-desc").value = p.prodDesc;
-  document.getElementById("product-ram").value = p.prodRam || '8GB';
-  document.getElementById("product-storage").value = p.prodStorage || '256GB SSD';
-  document.getElementById("product-display").value = p.prodDisplay || '15.6"';
-  document.getElementById("product-cat").value = p.prodCat;
-  document.getElementById("product-price").value = p.prodPrice;
-  document.getElementById("product-cost").value = p.prodCost || '';
-  document.getElementById("product-sold").value = p.prodSold;
-  document.getElementById("product-notes").value = p.prodNotes || '';
-  document.getElementById("submitBtn").textContent = "Update";
-  document.getElementById("product-form").style.display = "block";
-}
+                    <!-- Pricing Row -->
+                    <div class="form-group-inline-3" style="margin-top:1rem;">
+                        <div>
+                            <label><b>Selling Price (₹)</b></label>
+                            <input type="number" id="product-price" placeholder="15000" min="0" step="1" required>
+                        </div>
+                        <div>
+                            <label><b>Purchase Price (₹)</b></label>
+                            <input type="number" id="product-cost" placeholder="12000" min="0" step="1">
+                        </div>
+                        <div>
+                            <label><b>Units in Stock</b></label>
+                            <input type="number" id="product-sold" placeholder="1" min="0" required>
+                        </div>
+                    </div>
 
-function deleteProduct(prodID) {
-  if (!confirm("Delete " + prodID + " from stock?")) return;
-  products = products.filter(p => p.prodID !== prodID);
-  localStorage.setItem("bizTrackProducts", JSON.stringify(products));
-  renderProducts(products);
-}
+                    <div style="margin-top:1rem;">
+                        <label><b>Additional Notes</b></label>
+                        <input type="text" id="product-notes" placeholder="e.g. Backlit keyboard, Fingerprint reader, Windows 11 activated">
+                    </div>
 
-function updateProduct(prodID) {
-  const idx = products.findIndex(p => p.prodID === prodID);
-  if (idx === -1) return;
-  const updated = collectForm(prodID);
-  if (isDuplicateID(updated.prodID, prodID)) { alert("Stock ID already exists!"); return; }
-  products[idx] = updated;
-  localStorage.setItem("bizTrackProducts", JSON.stringify(products));
-  renderProducts(products);
-  document.getElementById("product-form").reset();
-  document.getElementById("submitBtn").textContent = "Add to Stock";
-  closeForm();
-}
+                    <div class="button-col" style="margin-top:1rem;">
+                        <button type="submit" class="btn" id="submitBtn">Add to Stock</button>
+                        <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+                    </div>
+                </form>
+            </div>
 
-function isDuplicateID(id, currentID) {
-  return products.some(p => p.prodID === id && p.prodID !== currentID);
-}
+            <!-- Table -->
+            <div class="table-container">
+                <table id="product-table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable('prodID')">Stock ID</th>
+                            <th onclick="sortTable('prodBrand')">Brand</th>
+                            <th onclick="sortTable('prodName')">Model</th>
+                            <th onclick="sortTable('prodDesc')">Processor</th>
+                            <th>Specs</th>
+                            <th onclick="sortTable('prodCat')">Condition</th>
+                            <th onclick="sortTable('prodPrice')">Price (₹)</th>
+                            <th onclick="sortTable('prodSold')">Stock</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
-function sortTable(col) {
-  const tbody = document.getElementById("tableBody");
-  const rows = Array.from(tbody.querySelectorAll("tr"));
-  const isNum = col === "prodPrice" || col === "prodSold";
-  rows.sort((a, b) => {
-    const av = isNum ? parseFloat(a.dataset[col]) : (a.dataset[col]||'');
-    const bv = isNum ? parseFloat(b.dataset[col]) : (b.dataset[col]||'');
-    return isNum ? av - bv : av.localeCompare(bv, undefined, {sensitivity:'base'});
-  }).forEach(r => tbody.appendChild(r));
-}
-
-document.getElementById("searchInput").addEventListener("keyup", function() {
-  const q = this.value.toLowerCase();
-  document.querySelectorAll(".product-row").forEach(row => {
-    row.style.display = row.innerText.toLowerCase().includes(q) ? "" : "none";
-  });
-});
-
-function exportToCSV() {
-  const rows = products.map(p => [
-    p.prodID, p.prodBrand, p.prodName, p.prodDesc,
-    p.prodRam, p.prodStorage, p.prodDisplay, p.prodCat,
-    p.prodPrice, p.prodCost, p.prodSold, p.prodNotes
-  ].join(','));
-  const header = "Stock ID,Brand,Model,Processor,RAM,Storage,Display,Condition,Sell Price,Cost Price,Stock,Notes";
-  const blob = new Blob([header + "\n" + rows.join("\n")], {type:'text/csv'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'justlaptop_inventory.csv';
-  a.click();
-}
-
-init();
+    <script src="./products.js"></script>
+    <script src="./gdrive.js"></script>
+</body>
+</html>
